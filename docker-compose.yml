@@ -1,0 +1,12 @@
+services:
+  mongodb:
+    image: mongo:latest        # ใช้ Image ตัวล่าสุดจาก Docker Hub
+    container_name: my-mongodb # ชื่อที่เราต้องการตั้งให้ Container
+    restart: always            # ให้มันรันใหม่เองถ้าเครื่อง Restart
+    ports:
+      - "27017:27017"          # เปิดทางให้เครื่องเรา (ซ้าย) คุยกับ Docker (ขวา)
+    volumes:
+      - ./mongo-data:/data/db  # สำคัญ! ให้เก็บข้อมูลไว้ในโฟลเดอร์ mongo-data ในโปรเจกต์เรา
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password

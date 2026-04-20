@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js",
+    "start": "nodemon --watch src --ext ts --exec \"ts-node server.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,14 +16,18 @@
     "@types/express": "^5.0.6",
     "@types/moment": "^2.11.29",
     "@types/node": "^25.5.0",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
     "typescript": "^6.0.2"
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.1017.0",
+    "@tc-customer/package": "git+https://github.com/pojaket01/tc-customer-pack.git#main",
     "aws-sdk": "^2.1693.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "moment": "^2.30.1",
+    "mongoose": "^9.4.1",
     "socket.io": "^4.8.3",
     "uuid": "^13.0.0"
   }
