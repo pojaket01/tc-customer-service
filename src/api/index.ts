@@ -1,5 +1,5 @@
 // dynamic register api route watch *.route.ts file in api folder
-import { Express, Request, Response } from 'express';
+import { Express, Request, RequestHandler, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 
@@ -7,6 +7,7 @@ interface RouteConfig {
   method: 'get' | 'post' | 'put' | 'delete' | 'patch';
   path: string;
   handler: (req: Request, res: Response) => void | Promise<void>;
+  middleware?: RequestHandler | RequestHandler[];
 }
 
 function scanRoutes(dir: string): string[] {
@@ -48,7 +49,15 @@ export function registerApiRoutes(app: Express) {
           if (Array.isArray(routes)) {
             routes.forEach((route) => {
               const fullPath = `/api${route.path}`;
-              app[route.method](fullPath, route.handler);
+              
+              // Register route with middleware if provided
+              if (route.middleware) {
+                const middlewares = Array.isArray(route.middleware) ? route.middleware : [route.middleware];
+                app[route.method](fullPath, ...middlewares, route.handler);
+              } else {
+                app[route.method](fullPath, route.handler);
+              }
+              
               console.log(`✅ Registered ${route.method.toUpperCase()} ${fullPath}`);
             });
           } else {

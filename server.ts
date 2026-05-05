@@ -8,6 +8,8 @@ import { Server } from 'socket.io';
 import { handleSocketConnection } from './socketHandler';
 import { registerApiRoutes } from './src/api';
 import { ConsumeQueue } from './src/consume/consume-queue';
+import { registerMiddleware } from './src/middlewares/register-middleware';
+
 dotenv.config();
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -21,7 +23,8 @@ const io = new Server(httpServer, {
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' })); // เพิ่ม limit สำหรับรูปภาพขนาดใหญ่
+app.use(express.urlencoded({ extended: true, limit: '50mb' })); // รองรับ form data
 
 // Connect to MongoDB
 const dbUrl = process.env.DB_URL;
@@ -40,6 +43,9 @@ io.on('connection', (socket) => {
 console.log('start registering API routes');
 // register API routes
 registerApiRoutes(app);
+
+// register middleware from src/middlewares/register-middleware
+registerMiddleware(app);
 
 // Scheduler to consume SQS messages every 30 seconds
 if (isProd) {

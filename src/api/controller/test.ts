@@ -6,7 +6,13 @@ const { CampaignType } = Constant;
 const test = (req: Request, res: Response) => {
     // console.log("Testing CampaignType enum:", Constant.CampaignType.EmailCampaign);
     Logger.info("Test endpoint hit");
-    res.json({
+    // res.json({
+    //     success: true,
+    //     message: 'Test endpoint working',
+    //     campaignType: CampaignType.EmailCampaign
+    // });
+
+    return res.status(200).json({
         success: true,
         message: 'Test endpoint working',
         campaignType: CampaignType.EmailCampaign

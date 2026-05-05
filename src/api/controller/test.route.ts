@@ -1,6 +1,7 @@
+import { TRoute } from "../../types/common";
 import * as API from "./test";
 
-const routes = [
+const routes: TRoute[] = [
     {
         method: 'get',
         path: '/test',
