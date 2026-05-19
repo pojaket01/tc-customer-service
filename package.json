@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --watch src --ext ts --exec \"ts-node server.ts\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-pack": "npx rimraf node_modules/@tc-customer/package && npm install @tc-customer/package"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +25,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.1017.0",
-    "@tc-customer/package": "git+https://github.com/pojaket01/tc-customer-pack.git#main",
+    "@tc-customer/package": "github:pojaket01/tc-customer-pack#main",
     "@types/multer": "^2.1.0",
     "aws-sdk": "^2.1693.0",
     "dotenv": "^17.3.1",
