@@ -4,6 +4,6 @@ export interface OcrResult {
     transferDate: string;
     note: string;
     reference: string;
-    merchant: string;
+    // merchant: string;
     rawText: string;
 }
